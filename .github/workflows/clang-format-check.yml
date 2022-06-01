@@ -9,10 +9,12 @@ jobs:
         path:
           # - check: './'    # path to include
           #   exclude: ''    # path to exclude
-          - check: 'src'
-            exclude: ''
+          # - check: 'src'
+          #   exclude: ''
           # - check: 'examples'
           #   exclude: ''
+          - check: './Core/Src'
+            exclude: ''
     steps:
     - uses: actions/checkout@v2
     - name: Run clang-format style check for C/C++/Protobuf programs.
