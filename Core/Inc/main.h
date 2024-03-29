@@ -7,13 +7,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2023 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -30,6 +29,18 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal.h"
 
+#include "stm32f0xx_ll_i2c.h"
+#include "stm32f0xx_ll_crs.h"
+#include "stm32f0xx_ll_rcc.h"
+#include "stm32f0xx_ll_bus.h"
+#include "stm32f0xx_ll_system.h"
+#include "stm32f0xx_ll_exti.h"
+#include "stm32f0xx_ll_cortex.h"
+#include "stm32f0xx_ll_utils.h"
+#include "stm32f0xx_ll_pwr.h"
+#include "stm32f0xx_ll_dma.h"
+#include "stm32f0xx_ll_gpio.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -37,12 +48,19 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+typedef struct 
+{
+	GPIO_TypeDef *GPIOx;
+	uint16_t pinNum;
+	uint8_t pulse;
+	uint8_t flip;
+} Pin_t;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-
+extern uint8_t i2c_address[1];
+extern Pin_t pwm_pin[4];
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
@@ -54,10 +72,11 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void user_i2c_init(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
@@ -67,5 +86,3 @@ void Error_Handler(void);
 #endif
 
 #endif /* __MAIN_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
